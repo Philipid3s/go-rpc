@@ -1,0 +1,59 @@
+syntax = "proto3";
+package v1;
+
+// Contact 
+message Contact {
+    // Unique integer identifier of contact
+    int64 id = 1;
+
+    // Contact firstname
+    string firstname = 2;
+
+    // Contact lastname
+    string lastname = 3;
+
+    // Contact address
+    string address = 4;
+}
+
+// Request data to read Contact infos
+message ReadRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Unique integer identifier of Contact
+    int64 id = 2;
+}
+
+// Contains Contact data specified in by ID request
+message ReadResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Contact entity read by ID
+    Contact contact = 2;
+}
+
+// Request data to read all Contacts
+message ReadAllRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+}
+
+// Contains list of all contacts
+message ReadAllResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // List of all contacts
+    repeated Contact contact = 2;
+}
+
+// Service to manage list of contacts
+service ContactService {
+    // Read contact data
+    rpc Read(ReadRequest) returns (ReadResponse);
+
+    // Read all contact data
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+}
